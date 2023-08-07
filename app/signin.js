@@ -1,20 +1,61 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { TextInput } from 'react-native-paper'
 
 const Signin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [viewPassword, setViewPassword] = useState(true);
+  const [viewPassword, setViewPassword] = useState(false);
+
+  const [errors , setErrors] = useState({
+    email: false,
+    password: false
+  })
 
   const handleLogin = () => {
+    setErrors({
+      email: false,
+      password: false,
+    })
+
+    if (!email || !password) {
+      setErrors({
+        email: !email,
+        password: !password,
+      })
+
+      Alert.alert('Para realizar o login é necessário preencher todos os campos.')
+      return
+    }
+    
+    if (!validateEmail(email)) {
+      setErrors(prevState => {
+        return {
+          ...prevState,
+          email: true,
+        }
+      })
+
+      Alert.alert('Favor inserir um email válido.');
+      return
+    }
+
+    Alert.alert('Login realizado com sucesso!');
     console.log('Email:', email);
     console.log('Password:', password);
+
+    setEmail('');
+    setPassword('');
   };
 
   const toggleViewPassword = () => {
     setViewPassword(!viewPassword);
   }
+
+  const validateEmail = (email) => {
+    const emailRegex = /^\w+@\w+\.\w+$/;
+    return emailRegex.test(email)
+  };
 
   return (
     <View style={styles.container}>
@@ -33,12 +74,13 @@ const Signin = () => {
           mode='outlined'
           activeOutlineColor='#189A46'
           theme={{ roundness: 50 }} 
+          error={errors.email}
         />
 
         <TextInput
           style={styles.input}
           label="Senha"
-          secureTextEntry={viewPassword}
+          secureTextEntry={!viewPassword}
           value={password}
           onChangeText={(textInput) => setPassword(textInput)}
           mode='outlined'
@@ -55,6 +97,8 @@ const Signin = () => {
           }
           activeOutlineColor='#189A46'
           theme={{ roundness: 50 }} 
+          error={errors.password}
+          onBlur={() => setViewPassword(false)}
         />
       </View>
 
