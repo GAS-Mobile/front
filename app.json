@@ -1,10 +1,19 @@
 {
   "expo": {
+    "name": "GAS-Mobile",
+    "slug": "GAS-Mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "backgroundColor": "#fff",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
     "scheme": "acme",
     "web": {
       "bundler": "metro"
-    },
-    "name": "front",
-    "slug": "front"
+    }
   }
 }
