@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Stack } from 'expo-router';
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { TextInput } from 'react-native-paper'
 
@@ -59,6 +60,12 @@ const Signin = () => {
 
   return (
     <View style={styles.container}>
+      <Stack.Screen
+        options={{
+          title: '',
+        }}
+      />
+
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Olá</Text>
         <Text style={styles.subtitle}>Bem vindo de volta</Text>
@@ -122,20 +129,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: 40,
+    paddingBottom: 100
   },
   titleContainer: {
     width: '90%',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 2,
-    marginBottom: 60,
+    marginBottom: 40,
   },
   inputsContainer: {
     width: '90%',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
-    marginBottom: 28,
+    marginBottom: 24,
   },
   title: {
     fontSize: 32,

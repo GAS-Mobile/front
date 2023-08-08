@@ -1,12 +1,17 @@
 import React from 'react';
 import { View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useRouter, Stack } from 'expo-router';
+
 
 const Home = () => {
   const navigate = useRouter()
 
   return (
     <View style={styles.container}>
+      <Stack.Screen options={{
+        headerShown: false,
+      }}/>
+
       {/* por hora a logo e para manter o layout da tela*/}
       <Image
         style={styles.logo}
