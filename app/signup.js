@@ -91,7 +91,7 @@ const Signup = () => {
     <View style={styles.container}>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Criar conta</Text>
-        <Text style={styles.subtitle}>Seja em vindo</Text>
+        <Text style={styles.subtitle}>Seja bem vindo</Text>
       </View>
 
       <View style={styles.inputsContainer}>
