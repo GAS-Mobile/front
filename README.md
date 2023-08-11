@@ -15,21 +15,25 @@ Before you begin, ensure you have the following prerequisites installed on your 
 
 1. Clone this repository to your local machine:
 
-   ```bash
-   git clone https://github.com/GAS-Mobile/front.git
-   ```
+  ```bash
+  git clone https://github.com/GAS-Mobile/front.git
+  ```
 
 2. Navigate to the project directory:
 
-   ```bash
-   cd front
-   ```
+  ```bash
+  cd front
+  ```
 
 3. Install project dependencies:
 
-   ```bash
-   npm install
-   ```
+  ```bash
+  npm install
+  ```
+
+### Configuration
+
+If the project uses environment variables, create a `.env` file in the root directory and provide the necessary values based on the provided `.env.example` file.
 
 ## Running the App
 
@@ -37,37 +41,42 @@ To start the development server and run the app, you can use the available scrip
 
 - To start the development server and open the Expo DevTools:
 
-   ```bash
-   npm start
-   ```
+  ```bash
+  npm start
+  ```
 
 - To run the app on an Android emulator or device:
 
-   ```bash
-   npm run android
-   ```
+  ```bash
+  npm run android
+  ```
 
 - To run the app on the iOS simulator:
 
-   ```bash
-   npm run ios
-   ```
+  ```bash
+  npm run ios
+  ```
 
 - To run the app in a web browser:
 
-   ```bash
-   npm run web
-   ```
+  ```bash
+  npm run web
+  ```
 
 Scan the QR code with the Expo Go app on your mobile device to view the app when running on Android or iOS.
 
-## Configuration
-
-If the project uses environment variables, create a `.env` file in the root directory and provide the necessary values. Check the project documentation or configuration files for additional setup steps.
-
 ## Contributing
+We welcome contributions to the project. If you would like to contribute, please follow these steps:
 
-If you're interested in contributing to the project, follow the guidelines provided in the project's documentation. This might include steps for submitting pull requests, reporting issues, and adhering to coding standards.
+1. Fork the repository.
+2. Create a new branch: `git checkout -b feature/your-feature-name`.
+3. Make your changes and commit them: `git commit -m "Add your changes"`.
+4. Push to your forked repository: `git push origin feature/your-feature-name`.
+5. Create a pull request to the main repository.
+
+## Troubleshooting
+
+If you encounter any issues or have questions, please open an issue on the GitHub repository. We'll be happy to assist you.
 
 ## License
 
