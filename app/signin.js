@@ -1,21 +1,22 @@
-import React, { useState } from 'react';
-import { Stack } from 'expo-router';
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import React, { useState } from 'react'
+import { Stack } from 'expo-router'
+import { View, Text, TouchableOpacity, Alert } from 'react-native'
 import { styles } from '../styles/authStyles'
 import { validateEmail } from '../utils/validators'
 import { EmailInput, PasswordInput } from '../components/authInputs'
+import { api } from '../lib/axios'
 
 const Signin = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [viewPassword, setViewPassword] = useState(false);
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [viewPassword, setViewPassword] = useState(false)
 
   const [errors , setErrors] = useState({
     email: false,
     password: false
   })
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     setErrors({
       email: false,
       password: false,
@@ -39,17 +40,24 @@ const Signin = () => {
         }
       })
 
-      Alert.alert('Favor inserir um email válido.');
+      Alert.alert('Favor inserir um email válido.')
       return
     }
+    
+    await api.post('/auth/login/', {
+      user: { email, password }
+    })
+    .then(response => {
+      console.log(response.data)
+      Alert.alert('Login realizado com sucesso!')
+    })
+    .catch(error => {
+      console.log(error.response.data, error.response.status)
+    })
 
-    Alert.alert('Login realizado com sucesso!');
-    console.log('Email:', email);
-    console.log('Password:', password);
-
-    setEmail('');
-    setPassword('');
-  };
+    setEmail('')
+    setPassword('')
+  }
 
   return (
     <View style={styles.container}>
@@ -90,7 +98,7 @@ const Signin = () => {
       </TouchableOpacity>
 
     </View>
-  );
-};
+  )
+}
 
-export default Signin;
+export default Signin
