@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { Stack } from 'expo-router';
-import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import { TextInput } from 'react-native-paper'
+import { styles } from '../styles/authStyles'
+import { validateEmail, validateCpf } from '../utils/validators'
+import { EmailInput, PasswordInput } from '../components/authInputs'
 
 const Signup = () => {
   const [name, setName] = useState('');
@@ -17,6 +20,35 @@ const Signup = () => {
     email: false,
     password: false
   })
+
+  const handleCpfChange = (text) => {
+    const numericOnly = text.replace(/\D/g, '');
+    let formattedCpf = '';
+  
+    if (numericOnly.length <= 3) {
+      formattedCpf = numericOnly;
+    } else if (numericOnly.length <= 6) {
+      formattedCpf = numericOnly.slice(0, 3) + '.' + numericOnly.slice(3);
+    } else if (numericOnly.length <= 9) {
+      formattedCpf =
+        numericOnly.slice(0, 3) +
+        '.' +
+        numericOnly.slice(3, 6) +
+        '.' +
+        numericOnly.slice(6);
+    } else {
+      formattedCpf =
+        numericOnly.slice(0, 3) +
+        '.' +
+        numericOnly.slice(3, 6) +
+        '.' +
+        numericOnly.slice(6, 9) +
+        '-' +
+        numericOnly.slice(9, 11);
+    }
+  
+    setCpf(formattedCpf)
+  }
 
   const handleSignup = () => {
     setErrors({
@@ -78,16 +110,6 @@ const Signup = () => {
     setViewPassword(!viewPassword);
   }
 
-  const validateCpf = (inputCpf) => {
-    const cpfRegex = /^[0-9]{11}$/;
-    return cpfRegex.test(inputCpf);
-  };  
-
-  const validateEmail = (email) => {
-    const emailRegex = /^\w+@\w+\.\w+$/;
-    return emailRegex.test(email)
-  };
-
   return (
     <View style={styles.container}>
       <Stack.Screen
@@ -117,50 +139,30 @@ const Signup = () => {
           style={styles.input}
           label="CPF (Apenas os números)"
           value={cpf}
-          onChangeText={(textInput) => setCpf(textInput)}
+          onChangeText={(textInput) => handleCpfChange(textInput)}
           inputMode='numeric'
           mode='outlined'
           activeOutlineColor='#189A46'
           theme={{ roundness: 50 }} 
           error={errors.cpf}
-          maxLength={11}
+          maxLength={14}
         />
 
-        <TextInput
-          style={styles.input}
-          label="Email"
-          value={email}
-          onChangeText={(textInput) => setEmail(textInput)}
-          inputMode='email'
-          mode='outlined'
-          activeOutlineColor='#189A46'
-          theme={{ roundness: 50 }} 
-          error={errors.email}
+        <EmailInput 
+          email={email}
+          emailError={errors.email}
+          setEmail={setEmail}
         />
 
-        <TextInput
-          style={styles.input}
-          label="Senha"
-          secureTextEntry={!viewPassword}
-          value={password}
-          onChangeText={(textInput) => setPassword(textInput)}
-          mode='outlined'
-          right={ viewPassword ? 
-            <TextInput.Icon icon="eye" 
-              onPress={toggleViewPassword} 
-              style={styles.passwordIcon}
-            /> 
-            : 
-            <TextInput.Icon icon="eye-off" 
-              onPress={toggleViewPassword} 
-              style={styles.passwordIcon}
-            />
-          }
-          activeOutlineColor='#189A46'
-          theme={{ roundness: 50 }} 
-          error={errors.password}
-          onBlur={() => setViewPassword(false)}
+        <PasswordInput 
+          label='Senha'
+          password={password}
+          setPassword={setPassword}
+          viewPassword={viewPassword}
+          setViewPassword={setViewPassword}
+          passwordError={errors.password}
         />
+
       </View>
 
       <TouchableOpacity style={styles.button} onPress={handleSignup}>
@@ -168,82 +170,11 @@ const Signup = () => {
       </TouchableOpacity>
       
       <TouchableOpacity onPress={() => console.log("já tenho uma conta")}>
-        <Text style={styles.alreadyHaveAccount}>Já possuo uma conta</Text>
+        <Text style={styles.link}>Já possuo uma conta</Text>
       </TouchableOpacity>
 
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    height: '100%',
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 40,
-  },
-  titleContainer: {
-    width: '90%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 2,
-    marginBottom: 40,
-  },
-  inputsContainer: {
-    width: '90%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 8,
-    marginBottom: 24,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: '600',
-  },
-  subtitle: {
-    fontSize: 20,
-    fontWeight: '500',
-  },
-  input: {
-    width: '100%',
-    height: 50,
-    fontSize: 18,
-    paddingLeft: 10,
-    lineHeight: 24,
-  },
-  passwordIcon: {
-    marginTop: 12,
-  },
-  button: {
-    backgroundColor: 'blue',
-    width: '90%',
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 5,
-  },
-  button:{
-    backgroundColor: '#189A46',
-    paddingVertical: 10,
-    borderRadius: 4,
-    alignItems: 'center',
-    borderWidth: 2,
-    borderColor: '#fff',
-    width: '90%',
-    borderRadius: 50,
-  },
-  buttonText:{
-    fontWeight: '500',
-    fontSize: 20,
-    color: '#fff',
-  },
-  alreadyHaveAccount: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: '#189A46',
-  }
-});
 
 export default Signup;
