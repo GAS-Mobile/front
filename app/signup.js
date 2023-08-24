@@ -5,6 +5,7 @@ import { TextInput } from 'react-native-paper'
 import { styles } from '../styles/authStyles'
 import { validateEmail, validateCpf } from '../utils/validators'
 import { EmailInput, PasswordInput } from '../components/authInputs'
+import { api } from '../lib/axios'
 
 const Signup = () => {
   const [name, setName] = useState('')
@@ -53,7 +54,7 @@ const Signup = () => {
     setCpf(formattedCpf)
   }
 
-  const handleSignup = () => {
+  const handleSignup = async () => {
     setErrors({
       name: false,
       cpf: false,
@@ -110,18 +111,27 @@ const Signup = () => {
       return
     }
 
-    Alert.alert('Cadastro realizado com sucesso!')
-    console.log('Name:', name)
-    console.log('CPF:', cpf)
-    console.log('Email:', email)
-    console.log('Password:', password)
-    console.log('PasswordConfirmation:', passwordConfirmation)
+    await api.post('/customers/create/', {
+      customer: {
+        name,
+        cpf,
+        email,
+        password,
+      }
+    })
+    .then(response => {
+      console.log(response?.data)
+      Alert.alert('Cadastro realizado com sucesso!')
 
-    setEmail('')
-    setName('')
-    setCpf('')
-    setPassword('')
-    setPasswordConfirmation('')
+      setEmail('')
+      setName('')
+      setCpf('')
+      setPassword('')
+      setPasswordConfirmation('')
+    })
+    .catch(error => {
+      console.log(error?.response?.data, 'status:', error?.response?.status)
+    })
   }
 
   return (
