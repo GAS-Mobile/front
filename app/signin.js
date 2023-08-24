@@ -5,6 +5,7 @@ import { styles } from '../styles/authStyles'
 import { validateEmail } from '../utils/validators'
 import { EmailInput, PasswordInput } from '../components/authInputs'
 import { api } from '../lib/axios'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Signin = () => {
   const [email, setEmail] = useState('')
@@ -21,7 +22,7 @@ const Signin = () => {
       email: false,
       password: false,
     })
-
+    
     if (!email || !password) {
       setErrors({
         email: !email,
@@ -43,20 +44,20 @@ const Signin = () => {
       Alert.alert('Favor inserir um email válido.')
       return
     }
-    
     await api.post('/auth/login/', {
       user: { email, password }
     })
-    .then(response => {
-      console.log(response.data)
+    .then(async response => {
+      console.log(response?.data)
       Alert.alert('Login realizado com sucesso!')
+      await AsyncStorage.setItem('accessToken', response?.data?.accessToken);
+      await AsyncStorage.setItem('refreshToken', response?.data?.refreshToken);
+      setEmail('')
+      setPassword('')
     })
     .catch(error => {
-      console.log(error.response.data, error.response.status)
+      console.log(error?.response?.data, 'status:', error?.response?.status)
     })
-
-    setEmail('')
-    setPassword('')
   }
 
   return (
