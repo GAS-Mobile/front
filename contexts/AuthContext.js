@@ -24,7 +24,7 @@ export const AuthProvider = ({children}) => {
         console.log('has tokens in storage, make a request and check if the tokens are valid')
       }
       else {
-        Alert.alert('Sessão expirada', 'Sua sessão expirou. Por favor, realize o login novamente para acessar sua conta.')
+        Alert.alert('Sessão Expirada', 'Sua sessão expirou. Por favor, realize o login novamente para acessar sua conta.')
         navigate.replace('/signin')
       }
     }

@@ -71,8 +71,7 @@ const Signup = () => {
         password: !password,
         passwordConfirmation: !passwordConfirmation,
       })
-
-      Alert.alert('Para realizar o cadastro é necessário preencher todos os campos.')
+      Alert.alert('Campos Obrigatórios', 'Para realizar o cadastro é necessário preencher todos os campos.')
       return
     }
 
@@ -83,8 +82,7 @@ const Signup = () => {
           cpf: true,
         }
       })
-
-      Alert.alert('Favor inserir um CPF válido (11 digitos, apenas números).')
+      Alert.alert('CPF Inválido', 'O CPF fornecido é inválido. Por favor, insira um CPF válido (11 digitos, apenas números).')
       return
     }    
   
@@ -95,8 +93,7 @@ const Signup = () => {
           email: true,
         }
       })
-
-      Alert.alert('Favor inserir um email válido.')
+      Alert.alert('Email Inválido', 'O endereço de email fornecido é inválido. Por favor, insira um email válido.')
       return
     }
 
@@ -107,7 +104,7 @@ const Signup = () => {
           passwordConfirmation: true,
         }
       })
-      Alert.alert('A confirmação de senha não confere.')
+      Alert.alert('Confirmação de Senha', 'As senhas não coincidem. Por favor, verifique se as senhas correspondem.')
       return
     }
 
@@ -120,9 +117,8 @@ const Signup = () => {
       }
     })
     .then(response => {
-      console.log(response?.data)
-      Alert.alert('Cadastro realizado com sucesso!')
-
+      //console.log(response?.data)
+      Alert.alert('Cadastro Bem-sucedido', 'Parabéns! Você realizou o cadastro com sucesso.')
       setEmail('')
       setName('')
       setCpf('')
@@ -130,7 +126,32 @@ const Signup = () => {
       setPasswordConfirmation('')
     })
     .catch(error => {
-      console.log(error?.response?.data, 'status:', error?.response?.status)
+      //console.log(error?.response?.data, 'status:', error?.response?.status)
+      if (error?.response?.status === 409 &&
+        error?.response?.data.message === 'Email is already in use by another user'
+      ){
+        Alert.alert('E-mail em Uso', 'Este e-mail já está cadastrado por outro usuário. Por favor, verifique o e-mail inserido.')
+        setErrors(prevState => {
+          return {
+            ...prevState,
+            email: true,
+          }
+        })
+      }
+      else if (error?.response?.status === 409 &&
+        error?.response?.data.message === 'CPF is already in use by another user'
+      ){
+        Alert.alert('CPF em Uso', 'Este CPF já está cadastrado por outro usuário. Por favor, verifique o CPF inserido.')
+        setErrors(prevState => {
+          return {
+            ...prevState,
+            cpf: true,
+          }
+        })
+      }
+      else {
+        Alert.alert('Falha no Cadastro', 'Ocorreu um erro durante o cadastro. Por favor, tente novamente.')
+      }
     })
   }
 

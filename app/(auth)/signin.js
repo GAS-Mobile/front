@@ -28,8 +28,7 @@ const Signin = () => {
         email: !email,
         password: !password,
       })
-
-      Alert.alert('Para realizar o login é necessário preencher todos os campos.')
+      Alert.alert('Campos Obrigatórios', 'Para realizar o login é necessário preencher todos os campos.')
       return
     }
     
@@ -40,23 +39,32 @@ const Signin = () => {
           email: true,
         }
       })
-
-      Alert.alert('Favor inserir um email válido.')
+      Alert.alert('Email Inválido', 'O endereço de email fornecido é inválido. Por favor, insira um email válido.')
       return
     }
     await api.post('/auth/login/', {
       user: { email, password }
     })
     .then(async response => {
-      console.log(response?.data)
-      Alert.alert('Login realizado com sucesso!')
+      //console.log(response?.data)
+      Alert.alert('Login Bem-sucedido', 'Parabéns! Você realizou o login com sucesso.')
       await AsyncStorage.setItem('accessToken', response?.data?.accessToken);
       await AsyncStorage.setItem('refreshToken', response?.data?.refreshToken);
       setEmail('')
       setPassword('')
     })
     .catch(error => {
-      console.log(error?.response?.data, 'status:', error?.response?.status)
+      //console.log(error?.response?.data, 'status:', error?.response?.status)
+      if (error?.response?.status === 401) {
+        Alert.alert('Falha na Autenticação', 'Usuário ou senha incorretos. Por favor, tente novamente.')
+        setErrors({
+          email: true,
+          password: true,
+        })
+      } 
+      else {
+        Alert.alert('Falha na Autenticação', 'Ocorreu um erro durante a autenticação. Por favor, tente novamente.')
+      }
     })
   }
 
