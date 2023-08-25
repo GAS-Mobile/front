@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import { Stack } from 'expo-router'
 import { View, Text, TouchableOpacity, Alert } from 'react-native'
 import { TextInput } from 'react-native-paper'
-import { styles } from '../styles/authStyles'
-import { validateEmail, validateCpf } from '../utils/validators'
-import { EmailInput, PasswordInput } from '../components/authInputs'
-import { api } from '../lib/axios'
+import { styles } from '../../styles/authStyles'
+import { validateEmail, validateCpf } from '../../utils/validators'
+import { CPFInput, EmailInput, NameInput, PasswordInput } from '../../components/authInputs'
+import { api } from '../../lib/axios'
 
 const Signup = () => {
   const [name, setName] = useState('')
@@ -148,28 +148,16 @@ const Signup = () => {
       </View>
 
       <View style={styles.inputsContainer}>
-        <TextInput
-          style={styles.input}
-          label="Nome"
-          value={name}
-          onChangeText={(textInput) => setName(textInput)}
-          mode='outlined'
-          activeOutlineColor='#189A46'
-          theme={{ roundness: 50 }} 
-          error={errors.name}
+        <NameInput 
+          name={name}
+          setName={setName}
+          nameError={errors.name}
         />
 
-        <TextInput
-          style={styles.input}
-          label="CPF (Apenas os números)"
-          value={cpf}
-          onChangeText={(textInput) => handleCpfChange(textInput)}
-          inputMode='numeric'
-          mode='outlined'
-          activeOutlineColor='#189A46'
-          theme={{ roundness: 50 }} 
-          error={errors.cpf}
-          maxLength={14}
+        <CPFInput
+          cpf={cpf}
+          setCpf={setCpf}
+          cpfError={errors.cpf}
         />
 
         <EmailInput 

@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { Stack } from 'expo-router'
 import { View, Text, TouchableOpacity, Alert } from 'react-native'
-import { styles } from '../styles/authStyles'
-import { validateEmail } from '../utils/validators'
-import { EmailInput, PasswordInput } from '../components/authInputs'
-import { api } from '../lib/axios'
+import { styles } from '../../styles/authStyles'
+import { validateEmail } from '../../utils/validators'
+import { EmailInput, PasswordInput } from '../../components/authInputs'
+import { api } from '../../lib/axios'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Signin = () => {

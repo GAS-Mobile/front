@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useRouter, Stack } from 'expo-router';
 
-
 const Home = () => {
   const navigate = useRouter()
 
@@ -12,7 +11,6 @@ const Home = () => {
         headerShown: false,
       }}/>
 
-      {/* por hora a logo e para manter o layout da tela*/}
       <Image
         style={styles.logo}
         source={require('../assets/icon.png')}

@@ -47,3 +47,63 @@ export const PasswordInput = ({label, password, setPassword, viewPassword, setVi
     />
   )
 }
+
+export const CPFInput = ({cpf, setCpf, cpfError}) => {
+  const handleCpfChange = (text) => {
+    const numericOnly = text.replace(/\D/g, '')
+    let formattedCpf = ''
+  
+    if (numericOnly.length <= 3) {
+      formattedCpf = numericOnly
+    } else if (numericOnly.length <= 6) {
+      formattedCpf = numericOnly.slice(0, 3) + '.' + numericOnly.slice(3)
+    } else if (numericOnly.length <= 9) {
+      formattedCpf =
+        numericOnly.slice(0, 3) +
+        '.' +
+        numericOnly.slice(3, 6) +
+        '.' +
+        numericOnly.slice(6)
+    } else {
+      formattedCpf =
+        numericOnly.slice(0, 3) +
+        '.' +
+        numericOnly.slice(3, 6) +
+        '.' +
+        numericOnly.slice(6, 9) +
+        '-' +
+        numericOnly.slice(9, 11)
+    }
+  
+    setCpf(formattedCpf)
+  }
+  return (
+    <TextInput
+      style={styles.input}
+      label="CPF (Apenas os números)"
+      value={cpf}
+      onChangeText={(textInput) => handleCpfChange(textInput)}
+      inputMode='numeric'
+      mode='outlined'
+      activeOutlineColor='#189A46'
+      theme={{ roundness: 50 }} 
+      error={cpfError}
+      maxLength={14}
+    />
+  )
+}
+
+export const NameInput = ({name, setName, nameError}) => {
+  return (
+    <TextInput
+      style={styles.input}
+      label="Nome"
+      value={name}
+      onChangeText={(textInput) => setName(textInput)}
+      mode='outlined'
+      activeOutlineColor='#189A46'
+      theme={{ roundness: 50 }} 
+      error={nameError}
+    />
+  )
+}

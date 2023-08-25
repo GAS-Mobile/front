@@ -9,10 +9,9 @@ export const AuthProvider = ({children}) => {
   const segments = useSegments()
   const navigate = useRouter()
   const [isLoaded, setIsLoaded] = useState(false)
-  const publicRoutes = ['signin', 'signup']
 
   const isPrivateRoute = () => {
-    return !(publicRoutes.includes(segments[0]) || segments.length === 0)
+    return !(segments[0] === '(auth)' || segments.length === 0)
   }
 
   const validateRouteAccess = async () => {
@@ -20,6 +19,7 @@ export const AuthProvider = ({children}) => {
       const accessToken = await AsyncStorage.getItem('accessToken')
       const refreshToken = await AsyncStorage.getItem('refreshToken')
       const hasTokensInLocalStorage = accessToken && refreshToken
+
       if (hasTokensInLocalStorage){
         console.log('has tokens in storage, make a request and check if the tokens are valid')
       }
