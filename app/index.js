@@ -1,23 +1,31 @@
 import React from 'react';
 import { View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useRouter, Stack } from 'expo-router';
-
+import * as Animatable from 'react-native-animatable';
 
 const Home = () => {
   const navigate = useRouter()
 
   return (
     <View style={styles.container}>
+      
       <Stack.Screen options={{
         headerShown: false,
       }}/>
 
-      {/* por hora a logo e para manter o layout da tela*/}
-      <Image
-        style={styles.logo}
-        source={require('../assets/icon.png')}
-      />
+      <Animatable.Image
+        animation="slideInUp"
+        iterationCount={2}
+        source={require('../assets/logo-inital-screen.png')}
+        style={{ 
+          width: '50%',
+          height: 200,
+          top: 200,
 
+          }}
+        resizeMode="contain"
+      />
+      
       <View style={styles.buttonsContainer}>
         <TouchableOpacity 
           style={styles.signinButton}
@@ -50,14 +58,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 160
   },
-  logo: {
-    height: '20%',
-    width: '40%',
-    borderRadius: 100,
-    resizeMode: 'contain',
-    top: 200
-  },
   buttonsContainer:{
+    flex: 1,
     width: '100%',
     height: "80%",
     alignItems: 'center',
