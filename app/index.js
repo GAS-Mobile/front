@@ -1,10 +1,12 @@
 import React from 'react';
 import { View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { useRouter, Stack } from 'expo-router';
 import * as Animatable from 'react-native-animatable';
+import { Stack } from 'expo-router';
+import { useNavigation } from '@react-navigation/native';
 
 const InitialPage = () => {
-  const navigate = useRouter()
+  const navigation = useNavigation();
+
 
   return (
     <View style={styles.container}>
@@ -29,7 +31,7 @@ const InitialPage = () => {
       <View style={styles.buttonsContainer}>
         <TouchableOpacity 
           style={styles.signinButton}
-          onPress={() => navigate.push('signin')}
+          onPress={() => navigation.navigate('signin')}
         >
           <Text style={styles.signinButtonText}>
             Login
@@ -37,7 +39,7 @@ const InitialPage = () => {
         </TouchableOpacity>
         <TouchableOpacity 
           style={styles.signupButton}
-          onPress={() => navigate.push('signup')}
+          onPress={() => navigation.navigate('signup')}
         >
           <Text style={styles.signupButtonText}>
             Cadastro

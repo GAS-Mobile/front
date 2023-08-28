@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { TextInput, Appbar, List, Avatar } from 'react-native-paper';
+import { Stack } from 'expo-router';
+import Ionicons from '@expo/vector-icons/Ionicons';
+
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -15,17 +18,28 @@ const Home = () => {
   };
 
   const mockCompanies = [
-    { id: 1, name: 'Colgatex', rating: 4.5 },
-    { id: 2, name: 'Coque Cole', rating: 3.8 },
-    { id: 3, name: 'Pepsu', rating: 2.5 },
+    { id: 1, name: 'Colgatex', Nota: 4.5 },
+    { id: 2, name: 'Coque Cole', Nota: 3.8 },
+    { id: 3, name: 'Pepsu', Nota: 2.5 },
+    { id: 4, name: 'Yamaxa', Nota: 4.5 },
+    { id: 5, name: 'Saudia', Nota: 2.2 },
+    { id: 6, name: 'Guanara', Nota: 1.5 },
+    { id: 7, name: 'GN', Nota: 5.0 },
+    { id: 8, name: 'Applx', Nota: 3.9 },
   ];
 
   return (
+
     <View style={styles.container}>
+
+      <Stack.Screen options={{
+        headerShown: false,
+      }}/>
       {/* Header with logo */}
 
       <Appbar.Header  style={styles.Header} >
-        <Avatar.Image size={50} source={require('../assets/logo-inital-screen.png')} />
+
+        <Avatar.Image style={styles.HeaderLogo} size={50} source={require('../assets/logo-inital-screen.png') } />
       </Appbar.Header>
 
       {/* Search input and button */}
@@ -58,8 +72,8 @@ const Home = () => {
             <List.Item
               key={company.id}
               title={company.name}
-              description={`Rating: ${company.rating}`}
-              left={() => <List.Icon icon="briefcase" />}
+              description={`Nota: ${company.Nota}`}
+              left={() => <List.Icon icon="copyright" />}
             />
           ))}
         </List.Section>
@@ -74,9 +88,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#2C6E49',
   },
   Header: {
-    backgroundColor: '#fff',
+    backgroundColor: '#FFFAF0',
     alignItems: 'center',
     justifyContent: 'center',
+    height: 60,
+  },
+  HeaderLogo: {
+    alignContent: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    alignItems: 'center',
   },
   searchContainer: {
     flexDirection: 'row',
