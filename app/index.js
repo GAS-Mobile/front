@@ -3,7 +3,7 @@ import { View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useRouter, Stack } from 'expo-router';
 import * as Animatable from 'react-native-animatable';
 
-const Home = () => {
+const InitialPage = () => {
   const navigate = useRouter()
 
   return (
@@ -97,4 +97,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Home;
+export default InitialPage;

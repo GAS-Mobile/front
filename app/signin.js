@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { Stack } from 'expo-router';
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { TextInput } from 'react-native-paper'
+import { useRouter } from 'expo-router';
+
 
 const Signin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [viewPassword, setViewPassword] = useState(false);
+  const navigate = useRouter();
 
   const [errors , setErrors] = useState({
     email: false,
@@ -109,7 +112,8 @@ const Signin = () => {
         />
       </View>
 
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+      {/* <TouchableOpacity style={styles.button} onPress={handleLogin}> */}
+      <TouchableOpacity style={styles.button} onPress={() => navigate.push('home')}>
         <Text style={styles.buttonText}>Entrar</Text>
       </TouchableOpacity>
       
