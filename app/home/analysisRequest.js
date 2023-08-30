@@ -4,8 +4,12 @@ import { styles } from '../../styles/analysisRequestStyle'
 import { TextInput } from 'react-native-paper'
 import { validateCnpj } from '../../utils/validators'
 import { api } from '../../lib/axios'
+import { useAuth } from '../hooks/useAuth'
+import { useRouter } from 'expo-router'
 
 const AnalysisRequestForm = () => {
+  const navigate = useRouter()
+  const user = useAuth()
   const [cnpj, setCnpj] = useState()
   const [branchLocation, setBranchLocation] = useState()
   const [motive, setMotive] = useState()
@@ -64,6 +68,38 @@ const AnalysisRequestForm = () => {
     setCnpj(formattedCNPJ)
   }
 
+  const handleApiErrorResponses = (statusCode, responseData) => {
+    switch (statusCode) {
+      case 400:
+        Alert.alert('Erro', 'Para criar uma solicitação de análise, é necessário enviar o ID do cliente, o CNPJ da empresa e o motivo da solicitação de análise')
+        break
+      case 401:
+        Alert.alert('Acesso não autorizado', 'Você não está autorizado a acessar esta rota. Faça login e tente novamente.')
+        // navigate.replace('signin)
+        break
+      case 403:
+        Alert.alert('Acesso negado', 'Você não tem permissão para acessar esta rota.')
+        break
+      case 404:
+        const notFoundMessage = responseData.message === 'Customer not found' ?
+                                'Cliente não encontrado'
+                                :
+                                'Empresa não encontrada'
+        Alert.alert('Não encontrado', notFoundMessage)
+        break
+      case 409:
+        const conflictMessage = responseData.message === 'A similar analysis request for this customer and company is already under analysis' ?
+                                'Uma solicitação de análise similar para este cliente e empresa já está em análise'
+                                :
+                                'Existe uma análise em andamento para a solicitação aprovada deste cliente e empresa que ainda não foi concluída'
+        Alert.alert('Conflito', conflictMessage)
+        break
+      case 500:
+        Alert.alert('Erro interno do servidor', 'Ocorreu um erro ao solicitar a análise')
+        break
+    }
+  }
+
   const handleSend = async () => {
     setErrors({
       cnpj: false,
@@ -92,8 +128,26 @@ const AnalysisRequestForm = () => {
       return
     }
 
-    Alert.alert('Solicitação bem-sucedida', 'Parabéns! Você realizou a solicitação de análise com sucesso.')
-    clearInputs()
+    const analysisRequest = {
+      customerID: user?.customerID,
+      companyCNPJ: cnpj,
+      motive: motive
+    }
+    api.post('/requests/create/', {analysisRequest})
+    .then(response => {
+      Alert.alert('Solicitação bem-sucedida', 'Parabéns! Você realizou a solicitação de análise com sucesso.')
+      clearInputs()
+      //navigate.back()
+    })
+    .catch(error => {
+      if (error?.response?.status && error?.response?.data){
+        handleApiErrorResponses(error.response.status, error.response.data)
+      }
+      else {
+        Alert.alert('Erro interno do servidor', 'Ocorreu um erro ao solicitar a análise')
+      }
+    })
+
   }
 
   return (
