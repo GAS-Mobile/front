@@ -41,14 +41,6 @@ export const styles = StyleSheet.create({
   passwordIcon: {
     marginTop: 12,
   },
-  button: {
-    backgroundColor: 'blue',
-    width: '90%',
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 5,
-  },
   button:{
     backgroundColor: '#189A46',
     paddingVertical: 10,

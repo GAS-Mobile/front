@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Stack } from 'expo-router'
+import { Stack, useRouter } from 'expo-router'
 import { View, Text, TouchableOpacity, Alert } from 'react-native'
 import { styles } from '../../styles/authStyles'
 import { validateEmail } from '../../utils/validators'
@@ -8,6 +8,7 @@ import { api } from '../../lib/axios'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Signin = () => {
+  const navigate = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [viewPassword, setViewPassword] = useState(false)
@@ -52,6 +53,7 @@ const Signin = () => {
       await AsyncStorage.setItem('refreshToken', response?.data?.refreshToken);
       setEmail('')
       setPassword('')
+      navigate.replace('home/analysisRequest')
     })
     .catch(error => {
       //console.log(error?.response?.data, 'status:', error?.response?.status)
