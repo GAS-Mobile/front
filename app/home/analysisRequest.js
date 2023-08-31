@@ -4,7 +4,7 @@ import { styles } from '../../styles/analysisRequestStyle'
 import { TextInput } from 'react-native-paper'
 import { validateCnpj } from '../../utils/validators'
 import { api } from '../../lib/axios'
-import { useAuth } from '../hooks/useAuth'
+import { useAuth } from '../../hooks/useAuth'
 import { useRouter } from 'expo-router'
 
 const AnalysisRequestForm = () => {

@@ -49,8 +49,8 @@ const styles = StyleSheet.create({
     gap: 160
   },
   logo: {
-    height: '20%',
-    width: '40%',
+    height: '25%',
+    width: '50%',
     borderRadius: 100,
     resizeMode: 'contain',
     top: 200
