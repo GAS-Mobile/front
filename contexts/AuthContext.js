@@ -59,6 +59,34 @@ export const AuthProvider = ({children}) => {
     return response
   }
 
+  const handleUnauthorizedRequest = async () => {
+    if (isPrivateRoute()) {
+      let accessToken = await AsyncStorage.getItem('accessToken')
+      const refreshToken = await AsyncStorage.getItem('refreshToken')
+      const hasTokensInLocalStorage = accessToken && refreshToken
+      
+      if (hasTokensInLocalStorage) {
+        let fetchUserResponse = await fetchUserData()
+        
+        if (fetchUserResponse.status !== 200) {
+          const refreshTokensResponse = await refreshTokens(refreshToken)
+          
+          if (refreshTokensResponse.status === 200) {
+            fetchUserResponse = await fetchUserData()
+            setUser(fetchUserResponse.data)
+            return
+          }
+        } 
+        else {
+          setUser(fetchUserResponse.data)
+          return
+        }
+      }
+      Alert.alert('Sessão Expirada', 'Sua sessão expirou. Por favor, realize o login novamente para acessar sua conta.')
+      navigate.replace('/signin') 
+    }
+  }
+  
   const validateRouteAccess = async () => {
     if (isPrivateRoute()){
       let accessToken = await AsyncStorage.getItem('accessToken')
@@ -72,14 +100,13 @@ export const AuthProvider = ({children}) => {
           const refreshTokensResponse = await refreshTokens(refreshToken)
           
           if (refreshTokensResponse.status === 200){
-            accessToken = refreshTokensResponse.data.accessToken
             fetchUserResponse = await fetchUserData()
             // FOR NOW THIS CONDITIONAL IS ONLY BECAUSE THE APP DON'T SUPPORT ADMINS AND ANALYSTS YET
             if (fetchUserResponse.data?.admin || fetchUserResponse.data?.analyst){
               Alert.alert('Aviso', 'A plataforma atualmente não suporta usuários do tipo analista e administrador.')
               logout()
               return
-            }
+            } 
             else {
               setUser(fetchUserResponse.data)
               return
@@ -91,13 +118,14 @@ export const AuthProvider = ({children}) => {
           Alert.alert('Aviso', 'A plataforma atualmente não suporta usuários do tipo analista e administrador.')
           logout()
           return
-        }
+        } 
         else {
           setUser(fetchUserResponse.data)
           return
         }
-      } else if (hasTokensInLocalStorage && user?.customer) return
-
+      } 
+      else if (hasTokensInLocalStorage && user?.customer) return
+      
       Alert.alert('Sessão Expirada', 'Sua sessão expirou. Por favor, realize o login novamente para acessar sua conta.')
       navigate.replace('/signin') 
     }
@@ -111,7 +139,16 @@ export const AuthProvider = ({children}) => {
   }, [segments])
 
   return (
-    <AuthContext.Provider value = {{user, refreshTokens, fetchUserData, logout, setUser}}>
+    <AuthContext.Provider value = {
+      {
+        user,
+        refreshTokens,
+        fetchUserData,
+        logout,
+        handleUnauthorizedRequest,
+        setUser
+      }
+    }>
       {children}
     </AuthContext.Provider>
   )
