@@ -9,7 +9,7 @@ import { useRouter } from 'expo-router'
 
 const AnalysisRequestForm = () => {
   const navigate = useRouter()
-  const user = useAuth()
+  const {user} = useAuth()
   const [cnpj, setCnpj] = useState()
   const [branchLocation, setBranchLocation] = useState()
   const [motive, setMotive] = useState()
@@ -129,7 +129,7 @@ const AnalysisRequestForm = () => {
     }
 
     const analysisRequest = {
-      customerID: user?.customerID,
+      customerID: user?.customer?._id,
       companyCNPJ: cnpj,
       motive: motive
     }
@@ -207,7 +207,10 @@ const AnalysisRequestForm = () => {
       </View>
 
       <View style={styles.buttonsContainer}>
-        <TouchableOpacity style={styles.cancelButton} onPress={clearInputs}>
+        <TouchableOpacity style={styles.cancelButton} onPress={() => {
+          // navigate.replace('home')
+          clearInputs()
+        }}>
           <Text style={styles.buttonText}>Cancelar</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.sendButton} onPress={handleSend}>
