@@ -1,13 +1,16 @@
 import React, { useState } from 'react'
-import { Stack } from 'expo-router'
+import { Stack, useRouter } from 'expo-router'
 import { View, Text, TouchableOpacity, Alert } from 'react-native'
 import { styles } from '../../styles/authStyles'
 import { validateEmail } from '../../utils/validators'
 import { EmailInput, PasswordInput } from '../../components/authInputs'
 import { api } from '../../lib/axios'
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useAuth } from '../../hooks/useAuth'
 
 const Signin = () => {
+  const {setUser} = useAuth()
+  const navigate = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [viewPassword, setViewPassword] = useState(false)
@@ -48,10 +51,13 @@ const Signin = () => {
     .then(async response => {
       //console.log(response?.data)
       Alert.alert('Login Bem-sucedido', 'Parabéns! Você realizou o login com sucesso.')
-      await AsyncStorage.setItem('accessToken', response?.data?.accessToken);
-      await AsyncStorage.setItem('refreshToken', response?.data?.refreshToken);
+      await AsyncStorage.setItem('accessToken', response?.data?.accessToken)
+      await AsyncStorage.setItem('refreshToken', response?.data?.refreshToken)
+      api.defaults.headers.common['Authorization'] = `Bearer ${response?.data?.accessToken}`
       setEmail('')
       setPassword('')
+      setUser({})
+      navigate.replace('home/analysisRequest')
     })
     .catch(error => {
       //console.log(error?.response?.data, 'status:', error?.response?.status)

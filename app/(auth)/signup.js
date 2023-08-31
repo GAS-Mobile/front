@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import { Stack } from 'expo-router'
+import { useRouter, Stack } from 'expo-router'
 import { View, Text, TouchableOpacity, Alert } from 'react-native'
-import { TextInput } from 'react-native-paper'
 import { styles } from '../../styles/authStyles'
 import { validateEmail, validateCpf } from '../../utils/validators'
 import { CPFInput, EmailInput, NameInput, PasswordInput } from '../../components/authInputs'
 import { api } from '../../lib/axios'
 
 const Signup = () => {
+  const navigate = useRouter()
   const [name, setName] = useState('')
   const [cpf, setCpf] = useState('')
   const [email, setEmail] = useState('')
@@ -210,10 +210,10 @@ const Signup = () => {
         <Text style={styles.buttonText}>Cadastrar</Text>
       </TouchableOpacity>
       
-      <TouchableOpacity onPress={() => console.log("já tenho uma conta")}>
+      <TouchableOpacity onPress={() => navigate.replace('signin')}>
         <Text style={styles.link}>Já possuo uma conta</Text>
       </TouchableOpacity>
-
+      
     </View>
   )
 }
