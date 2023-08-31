@@ -15,6 +15,48 @@ export const AuthProvider = ({children}) => {
   const isPrivateRoute = () => {
     return !(segments[0] === '(auth)' || segments.length === 0)
   }
+  
+  const logout = async () => {
+    let response = await api.delete('/auth/logout/')
+    .then(async response => {
+      delete api.defaults.headers.common.Authorization
+      return {status: response?.status, data: response?.data}
+    })
+    .catch(error => {
+      return {status: error?.response?.status, data: error?.response?.data}
+    })
+    // console.log(response)
+    await AsyncStorage.removeItem('accessToken')
+    await AsyncStorage.removeItem('refreshToken')
+    return response
+  }
+  
+  const fetchUserData = async () => {
+    let response = await api.get('/authorized-user/')
+    .then((response =>{
+      return {status: response?.status, data: response?.data}
+    }))
+    .catch((error) => {
+      return {status: error?.response?.status, data: error?.response?.data}
+    })
+    // console.log(response)
+    return response
+  }
+  
+  const refreshTokens = async (refreshToken) => {
+    let response = await api.post('/auth/refresh-tokens/', {refreshToken})
+    .then((async response =>{
+      await AsyncStorage.setItem('accessToken', response?.data?.accessToken)
+      await AsyncStorage.setItem('refreshToken', response?.data?.refreshToken)
+      api.defaults.headers.common['Authorization'] = `Bearer ${response?.data?.accessToken}`
+      return {status: response?.status, data: response?.data}
+    }))
+    .catch((error) => {
+      return {status: error?.response?.status, data: error?.response?.data}
+    })
+    // console.log(response)
+    return response
+  }
 
   const validateRouteAccess = async () => {
     if (isPrivateRoute()){
@@ -44,34 +86,7 @@ export const AuthProvider = ({children}) => {
       navigate.replace('/signin') 
     }
   }
-
-  const fetchUserData = async () => {
-    let response = await api.get('/authorized-user/')
-    .then((response =>{
-      return {status: response?.status, data: response?.data}
-    }))
-    .catch((error) => {
-      return {status: error?.response?.status, data: error?.response?.data}
-    })
-    // console.log(response)
-    return response
-  }
-
-  const refreshTokens = async (refreshToken) => {
-    let response = await api.post('/auth/refresh-tokens/', {refreshToken})
-    .then((async response =>{
-      await AsyncStorage.setItem('accessToken', response?.data?.accessToken)
-      await AsyncStorage.setItem('refreshToken', response?.data?.refreshToken)
-      api.defaults.headers.common['Authorization'] = `Bearer ${response?.data?.accessToken}`
-      return {status: response?.status, data: response?.data}
-    }))
-    .catch((error) => {
-      return {status: error?.response?.status, data: error?.response?.data}
-    })
-    // console.log(response)
-    return response
-  }
-
+  
   useEffect(() => {
     if(isLoaded) {
       validateRouteAccess()
@@ -80,7 +95,7 @@ export const AuthProvider = ({children}) => {
   }, [segments])
 
   return (
-    <AuthContext.Provider value = {{user, refreshTokens, fetchUserData}}>
+    <AuthContext.Provider value = {{user, refreshTokens, fetchUserData, logout}}>
       {children}
     </AuthContext.Provider>
   )
