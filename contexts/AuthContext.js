@@ -23,14 +23,14 @@ export const AuthProvider = ({children}) => {
       const hasTokensInLocalStorage = accessToken && refreshToken
       
       if (hasTokensInLocalStorage && !user?.customer){
-        let fetchUserResponse = await fetchUserData(accessToken)
+        let fetchUserResponse = await fetchUserData()
         
         if (fetchUserResponse.status !== 200){
           const refreshTokensResponse = await refreshTokens(refreshToken)
           
           if (refreshTokensResponse.status === 200){
             accessToken = refreshTokensResponse.data.accessToken
-            fetchUserResponse = await fetchUserData(accessToken)
+            fetchUserResponse = await fetchUserData()
             setUser(fetchUserResponse.data)
             return
           }
@@ -45,8 +45,7 @@ export const AuthProvider = ({children}) => {
     }
   }
 
-  const fetchUserData = async (accessToken) => {
-    api.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
+  const fetchUserData = async () => {
     let response = await api.get('/authorized-user/')
     .then((response =>{
       return {status: response?.status, data: response?.data}
@@ -63,6 +62,7 @@ export const AuthProvider = ({children}) => {
     .then((async response =>{
       await AsyncStorage.setItem('accessToken', response?.data?.accessToken)
       await AsyncStorage.setItem('refreshToken', response?.data?.refreshToken)
+      api.defaults.headers.common['Authorization'] = `Bearer ${response?.data?.accessToken}`
       return {status: response?.status, data: response?.data}
     }))
     .catch((error) => {
