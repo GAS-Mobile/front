@@ -28,6 +28,7 @@ export const AuthProvider = ({children}) => {
     // console.log(response)
     await AsyncStorage.removeItem('accessToken')
     await AsyncStorage.removeItem('refreshToken')
+    navigate.replace('signin')
     return response
   }
   
@@ -77,7 +78,6 @@ export const AuthProvider = ({children}) => {
             if (fetchUserResponse.data?.admin || fetchUserResponse.data?.analyst){
               Alert.alert('Aviso', 'A plataforma atualmente não suporta usuários do tipo analista e administrador.')
               logout()
-              navigate.replace('signin')
               return
             }
             else {
@@ -90,7 +90,6 @@ export const AuthProvider = ({children}) => {
         else if (fetchUserResponse.data?.admin || fetchUserResponse.data?.analyst) {
           Alert.alert('Aviso', 'A plataforma atualmente não suporta usuários do tipo analista e administrador.')
           logout()
-          navigate.replace('signin')
           return
         }
         else {
