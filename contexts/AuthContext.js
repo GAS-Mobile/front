@@ -73,14 +73,31 @@ export const AuthProvider = ({children}) => {
           if (refreshTokensResponse.status === 200){
             accessToken = refreshTokensResponse.data.accessToken
             fetchUserResponse = await fetchUserData()
-            setUser(fetchUserResponse.data)
-            return
+            // FOR NOW THIS CONDITIONAL IS ONLY BECAUSE THE APP DON'T SUPPORT ADMINS AND ANALYSTS YET
+            if (fetchUserResponse.data?.admin || fetchUserResponse.data?.analyst){
+              Alert.alert('Aviso', 'A plataforma atualmente não suporta usuários do tipo analista e administrador.')
+              logout()
+              navigate.replace('signin')
+              return
+            }
+            else {
+              setUser(fetchUserResponse.data)
+              return
+            }
           }
-        } else {
+        }
+        // FOR NOW THIS CONDITIONAL IS ONLY BECAUSE THE APP DON'T SUPPORT ADMINS AND ANALYSTS YET
+        else if (fetchUserResponse.data?.admin || fetchUserResponse.data?.analyst) {
+          Alert.alert('Aviso', 'A plataforma atualmente não suporta usuários do tipo analista e administrador.')
+          logout()
+          navigate.replace('signin')
+          return
+        }
+        else {
           setUser(fetchUserResponse.data)
           return
         }
-      } else if (hasTokensInLocalStorage) return
+      } else if (hasTokensInLocalStorage && user?.customer) return
 
       Alert.alert('Sessão Expirada', 'Sua sessão expirou. Por favor, realize o login novamente para acessar sua conta.')
       navigate.replace('/signin') 
@@ -95,7 +112,7 @@ export const AuthProvider = ({children}) => {
   }, [segments])
 
   return (
-    <AuthContext.Provider value = {{user, refreshTokens, fetchUserData, logout}}>
+    <AuthContext.Provider value = {{user, refreshTokens, fetchUserData, logout, setUser}}>
       {children}
     </AuthContext.Provider>
   )

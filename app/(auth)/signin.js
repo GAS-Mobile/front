@@ -6,8 +6,10 @@ import { validateEmail } from '../../utils/validators'
 import { EmailInput, PasswordInput } from '../../components/authInputs'
 import { api } from '../../lib/axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useAuth } from '../../hooks/useAuth'
 
 const Signin = () => {
+  const {setUser} = useAuth()
   const navigate = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -54,6 +56,7 @@ const Signin = () => {
       api.defaults.headers.common['Authorization'] = `Bearer ${response?.data?.accessToken}`
       setEmail('')
       setPassword('')
+      setUser({})
       navigate.replace('home/analysisRequest')
     })
     .catch(error => {
