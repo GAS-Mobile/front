@@ -1,9 +1,11 @@
 import React from "react"
 import { Stack } from "expo-router"
 import { AuthProvider } from "../contexts/AuthContext"
+import { PaperProvider } from 'react-native-paper'
 
-const Layout = () => {
+const RootLayout = () => {
   return (
+    <PaperProvider>
     <AuthProvider>
       <Stack 
         screenOptions={{
@@ -14,7 +16,8 @@ const Layout = () => {
         }}
       />
     </AuthProvider>
+    </PaperProvider>
   )
 }
 
-export default Layout
+export default RootLayout
