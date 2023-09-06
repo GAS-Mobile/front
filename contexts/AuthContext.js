@@ -28,7 +28,7 @@ export const AuthProvider = ({children}) => {
     // console.log(response)
     await AsyncStorage.removeItem('accessToken')
     await AsyncStorage.removeItem('refreshToken')
-    navigate.replace('signin')
+    navigate.replace('/')
     return response
   }
   

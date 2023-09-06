@@ -1,16 +1,23 @@
 import React from 'react'
-import { View, TouchableOpacity, Text } from 'react-native'
+import { View, TouchableOpacity, Text, Alert } from 'react-native'
 import { DrawerContentScrollView } from '@react-navigation/drawer'
 import { Avatar, IconButton } from 'react-native-paper'
 import { styles } from '../styles/drawerMenuStyles'
+import { useAuth } from '../hooks/useAuth'
+import { useRouter, useSegments } from 'expo-router'
 
 export default function DrawerContent({ navigation }) {
+  const {logout} = useAuth()
+  const router = useRouter()
+  const segments = useSegments()
+
   const closeDrawer = () => {
     navigation.closeDrawer()
   }
 
   const handleLogout = () => {
-    console.log('logout')
+    Alert.alert('Logout com sucesso', 'Você foi desconectado da sua conta com sucesso.');
+    logout()
   }
 
   return (
@@ -35,7 +42,11 @@ export default function DrawerContent({ navigation }) {
         <View style={styles.links}>
           <TouchableOpacity
             style={styles.drawerItem}
-            onPress={() => console.log('Home')}
+            onPress={() => {
+              if (segments[0] !== 'home'){
+                router.replace('home/')
+              }
+            }}
           >
             <Text style={styles.drawerItemText}>Home</Text>
           </TouchableOpacity>

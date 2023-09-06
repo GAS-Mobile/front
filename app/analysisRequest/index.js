@@ -34,7 +34,7 @@ const AnalysisRequestForm = ({navigation}) => {
     setIsLoadingCompanyData(true)
 
     const companyID = extractCompanyID(params?.path)
-    console.log(companyID)
+    //console.log(companyID)
     
     let response = await api.get(`/companies/${companyID}/`)
     .then(response => {
@@ -51,13 +51,12 @@ const AnalysisRequestForm = ({navigation}) => {
         response?.data?.company?.headquartersLocation?.state + "."
       )
 
-      console.log(response.data.company)
       return {status: response?.status, data: response?.data}
     })
     .catch(error => {
       return {status: error?.response?.status, data: error?.response?.data}
     })
-    console.log(response)
+    //console.log(response)
     setTimeout(() => setIsLoadingCompanyData(false), 300)
     return response
   }
