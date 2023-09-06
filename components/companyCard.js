@@ -3,8 +3,11 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import {IconButton, Avatar } from 'react-native-paper'
 import { styles } from '../styles/companyCardStyles'
 import { formatDate } from '../utils/formatters'
+import { useRouter } from 'expo-router';
 
 const CompanyCard = ({company}) => {
+  const navigation = useRouter()
+
   const chooseStyleBasedOnScore = () => {
     return company.score <= 4 
     ?
@@ -44,7 +47,10 @@ const CompanyCard = ({company}) => {
 
       </View>
 
-      <TouchableOpacity onPress={() => console.log("acessar detalhes")} style={styles.showCompanyDetailsButton}>
+      <TouchableOpacity onPress={() => {
+        navigation.push(`companies/${company._id}`)
+      }} style={styles.showCompanyDetailsButton}>
+
         <Text style={styles.showCompanyDetailsText}>{'Acessar\ndetalhes'}</Text>
         <IconButton
           style={styles.showCompanyDetailsIcon}
