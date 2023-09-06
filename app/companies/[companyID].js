@@ -37,13 +37,12 @@ const CompanyProfile = ({ navigation }) => {
     let response = await api.get(`/companies/${params?.companyID}/`)
     .then(response => {
       setCompany(response.data.company)
-      console.log(response.data.company)
       return {status: response?.status, data: response?.data}
     })
     .catch(error => {
       return {status: error?.response?.status, data: error?.response?.data}
     })
-    console.log(response)
+    //console.log(response)
     setTimeout(() => setIsLoadingCompanyData(false), 300)
     return response
   }
@@ -117,7 +116,15 @@ const CompanyProfile = ({ navigation }) => {
           </View>
         }
 
-        <TouchableOpacity style={styles.button} onPress={()=> router.push('analysisRequest/')}>
+        <TouchableOpacity 
+          style={styles.button} 
+          onPress={()=> {
+            router.push(
+            {
+              pathname: 'analysisRequest/',
+              params: { companyID: params?.companyID }
+            })
+          }}>
           <Text style={styles.buttonText}>Solicitar Análise</Text>
         </TouchableOpacity>
       </View>
