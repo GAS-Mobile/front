@@ -28,13 +28,14 @@ export const AuthProvider = ({children}) => {
     // console.log(response)
     await AsyncStorage.removeItem('accessToken')
     await AsyncStorage.removeItem('refreshToken')
-    navigate.replace('signin')
+    navigate.replace('/')
     return response
   }
   
   const fetchUserData = async () => {
     let response = await api.get('/authorized-user/')
     .then((response =>{
+      setUser(response?.data)
       return {status: response?.status, data: response?.data}
     }))
     .catch((error) => {
@@ -92,7 +93,7 @@ export const AuthProvider = ({children}) => {
       let accessToken = await AsyncStorage.getItem('accessToken')
       const refreshToken = await AsyncStorage.getItem('refreshToken')
       const hasTokensInLocalStorage = accessToken && refreshToken
-      
+
       if (hasTokensInLocalStorage && !user?.customer){
         let fetchUserResponse = await fetchUserData()
         

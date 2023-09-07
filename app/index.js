@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useRouter, Stack } from 'expo-router';
 
-const Home = () => {
+const InitialPage = () => {
   const navigate = useRouter()
 
   return (
@@ -93,4 +93,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Home;
+export default InitialPage;

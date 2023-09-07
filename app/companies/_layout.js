@@ -1,12 +1,12 @@
 import React from "react"
-import { Slot, Stack } from "expo-router"
+import { Stack, Slot } from "expo-router"
 import { createDrawerNavigator } from '@react-navigation/drawer'
-import Home from '../home/index'
+import CompanyProfile from "./[companyID]"
 import DrawerContent from "../../components/drawerContent"
 
 const Drawer = createDrawerNavigator()
 
-const HomeLayout = () => {
+const CompaniesLayout = () => {
   return (
     <>
       <Stack.Screen
@@ -14,17 +14,17 @@ const HomeLayout = () => {
           headerShown: false
         }}
       />
-
-      <Drawer.Navigator
+      
+      <Drawer.Navigator  Navigator
         screenOptions={{
           headerShown: false
         }}
         drawerContent={(props) => <DrawerContent {...props} />}
       >
-        <Drawer.Screen name="Home" component={Home} /> 
+        <Drawer.Screen name="CompanyProfile" component={CompanyProfile} /> 
       </Drawer.Navigator>
     </>
   )
 }
 
-export default HomeLayout 
+export default CompaniesLayout 

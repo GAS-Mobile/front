@@ -9,7 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useAuth } from '../../hooks/useAuth'
 
 const Signin = () => {
-  const {setUser} = useAuth()
+  const {fetchUserData} = useAuth()
   const navigate = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -56,8 +56,8 @@ const Signin = () => {
       api.defaults.headers.common['Authorization'] = `Bearer ${response?.data?.accessToken}`
       setEmail('')
       setPassword('')
-      setUser({})
-      navigate.replace('home/analysisRequest')
+      await fetchUserData()
+      navigate.replace('home')
     })
     .catch(error => {
       //console.log(error?.response?.data, 'status:', error?.response?.status)
