@@ -7,7 +7,7 @@ import { useAuth } from '../hooks/useAuth'
 import { useRouter, useSegments } from 'expo-router'
 
 export default function DrawerContent({ navigation }) {
-  const {logout} = useAuth()
+  const {logout, user} = useAuth()
   const router = useRouter()
   const segments = useSegments()
 
@@ -36,7 +36,7 @@ export default function DrawerContent({ navigation }) {
             source={require('../assets/default-user-avatar.png')} 
             style={styles.avatar}
           />
-          <Text style={styles.userName}>Usuário</Text>
+          <Text style={styles.userName}>{user?.customer?.name}</Text>
         </View> 
 
         <View style={styles.links}>
