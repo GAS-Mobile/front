@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useRouter, Stack } from 'expo-router'
-import { View, Text, TouchableOpacity, Alert } from 'react-native'
+import { View, Text, TouchableOpacity, Alert, ActivityIndicator } from 'react-native'
 import { styles } from '../../styles/authStyles'
 import { validateEmail, validateCpf } from '../../utils/validators'
 import { CPFInput, EmailInput, NameInput, PasswordInput } from '../../components/authInputs'
@@ -13,9 +13,9 @@ const Signup = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [passwordConfirmation, setPasswordConfirmation] = useState('')
-
   const [viewPassword, setViewPassword] = useState(false)
   const [viewPasswordConfirmation, setViewPasswordConfirmation] = useState(false)
+  const [waitingRequestResponse, setWaitingRequestResponse] = useState(false)
 
   const [errors , setErrors] = useState({
     name: false,
@@ -108,6 +108,8 @@ const Signup = () => {
       return
     }
 
+    setWaitingRequestResponse(true)
+
     await api.post('/customers/create/', {
       customer: {
         name,
@@ -118,6 +120,7 @@ const Signup = () => {
     })
     .then(response => {
       //console.log(response?.data)
+      setTimeout(() => setWaitingRequestResponse(false), 300)
       Alert.alert('Cadastro Bem-sucedido', 'Parabéns! Você realizou o cadastro com sucesso.')
       setEmail('')
       setName('')
@@ -127,6 +130,7 @@ const Signup = () => {
     })
     .catch(error => {
       //console.log(error?.response?.data, 'status:', error?.response?.status)
+      setTimeout(() => setWaitingRequestResponse(false), 300)
       if (error?.response?.status === 409 &&
         error?.response?.data.message === 'Email is already in use by another user'
       ){
@@ -206,8 +210,17 @@ const Signup = () => {
         />
       </View>
 
-      <TouchableOpacity style={styles.button} onPress={handleSignup}>
-        <Text style={styles.buttonText}>Cadastrar</Text>
+      <TouchableOpacity 
+        style={styles.button} 
+        onPress={handleSignup} 
+        disabled={waitingRequestResponse}
+      >
+        { 
+          waitingRequestResponse ?
+          <ActivityIndicator color="#fff" size={28}/>
+          :
+          <Text style={styles.buttonText}>Cadastrar</Text>
+        }
       </TouchableOpacity>
       
       <TouchableOpacity onPress={() => navigate.replace('signin')}>

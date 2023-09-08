@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, TouchableOpacity, Alert } from 'react-native'
+import { View, Text, TouchableOpacity, Alert, ActivityIndicator } from 'react-native'
 import { styles } from '../../styles/analysisRequestStyle'
 import { TextInput } from 'react-native-paper'
 import { validateCnpj } from '../../utils/validators'
@@ -16,6 +16,7 @@ const AnalysisRequestForm = ({navigation}) => {
   const [cnpj, setCnpj] = useState()
   const [branchLocation, setBranchLocation] = useState()
   const [motive, setMotive] = useState()
+  const [waitingRequestResponse, setWaitingRequestResponse] = useState(false)
   const router = useRouter()
   const params = useSearchParams()
 
@@ -189,13 +190,18 @@ const AnalysisRequestForm = ({navigation}) => {
       companyCNPJ: cnpj,
       motive: motive
     }
+
+    setWaitingRequestResponse(true)
+    
     api.post('/requests/create/', {analysisRequest})
     .then(response => {
+      setTimeout(() => setWaitingRequestResponse(false), 300)
       Alert.alert('Solicitação bem-sucedida', 'Parabéns! Você realizou a solicitação de análise com sucesso.')
       clearInputs()
       router.back()
     })
     .catch(error => {
+      setTimeout(() => setWaitingRequestResponse(false), 300)
       if (error?.response?.status && error?.response?.data){
         handleApiErrorResponses(error.response.status, error.response.data)
       }
@@ -273,14 +279,27 @@ const AnalysisRequestForm = ({navigation}) => {
         </View>
 
         <View style={styles.buttonsContainer}>
-          <TouchableOpacity style={styles.cancelButton} onPress={() => {
-            router.back()
-            clearInputs()
-          }}>
+          <TouchableOpacity 
+            style={styles.cancelButton} 
+            onPress={() => {
+              router.back()
+              clearInputs()
+            }}
+            disabled={waitingRequestResponse}
+          >
             <Text style={styles.buttonText}>Cancelar</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.sendButton} onPress={handleSend}>
-            <Text style={styles.buttonText}>Enviar</Text>
+          <TouchableOpacity 
+            style={styles.sendButton} 
+            onPress={handleSend}
+            disabled={waitingRequestResponse}
+          >
+            {
+              waitingRequestResponse ?
+              <ActivityIndicator color="#fff" size={20}/>
+              :
+              <Text style={styles.buttonText}>Enviar</Text>
+            }
           </TouchableOpacity>
         </View>
       </View>

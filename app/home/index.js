@@ -184,7 +184,7 @@ const Home = ({ navigation }) => {
               <CompanyCard company={company} key={index}/>
             ))}
             {isLoadingCompanies && (
-              <View style={styles.loading}>
+              <View>
                 <ActivityIndicator color="#159B46" size={'large'}/>
               </View>
             )}
