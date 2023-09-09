@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, TouchableOpacity, Alert, ActivityIndicator } from 'react-native'
+import { View, Text, TouchableOpacity, Alert, ActivityIndicator, ScrollView } from 'react-native'
 import { styles } from '../../styles/analysisRequestStyle'
 import { TextInput } from 'react-native-paper'
 import { validateCnpj } from '../../utils/validators'
@@ -223,7 +223,7 @@ const AnalysisRequestForm = ({navigation}) => {
     <>
       <Header navigation={navigation}/>
 
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <Text style={styles.title}>Solicitar avaliação</Text>
 
         <View style={styles.formContainer}>
@@ -302,7 +302,7 @@ const AnalysisRequestForm = ({navigation}) => {
             }
           </TouchableOpacity>
         </View>
-      </View>
+      </ScrollView>
     </>
   )
 }

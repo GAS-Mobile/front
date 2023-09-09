@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useRouter, Stack } from 'expo-router'
-import { View, Text, TouchableOpacity, Alert, ActivityIndicator } from 'react-native'
+import { View, Text, TouchableOpacity, Alert, ActivityIndicator, ScrollView } from 'react-native'
 import { styles } from '../../styles/authStyles'
 import { validateEmail, validateCpf } from '../../utils/validators'
 import { CPFInput, EmailInput, NameInput, PasswordInput } from '../../components/authInputs'
@@ -160,7 +160,7 @@ const Signup = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Stack.Screen
         options={{
           title: '',
@@ -227,7 +227,7 @@ const Signup = () => {
         <Text style={styles.link}>Já possuo uma conta</Text>
       </TouchableOpacity>
       
-    </View>
+    </ScrollView>
   )
 }
 

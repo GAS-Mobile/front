@@ -20,32 +20,33 @@ export const styles = StyleSheet.create({
   },
   container: {
     backgroundColor: '#F2F2F2',
-    height: '100%',
+    height: '80%',
     width: '100%',
-    gap: 12,
   },
-  companyBanner: {
+  companyBannerBackground: {
     backgroundColor: '#75B28B',
     width: '100%',
-    height: '12%',
+    height: 110,
+    paddingHorizontal: 20,
+    marginBottom: 80
+  },
+  companyBannerData: {
+    width: '100%',
     flexDirection: 'row',
     paddingTop: 45,
-    marginBottom: '16%',
     gap: 10,
-    paddingHorizontal: 20,
   },
   companyName: {
-    marginTop: 20,
+    marginTop: -20,
     fontSize: 16,
     fontWeight: '600',
     color: '#fff',
-    textAlign: 'center',
     alignSelf: 'center',
   },
   companyAboutSection: {
     paddingHorizontal: 32,
     gap: 8,
-    marginBottom: 30,
+    paddingBottom: 30,
   },
   sectionTitle: {
     fontWeight: '600',
@@ -63,11 +64,10 @@ export const styles = StyleSheet.create({
   companyDefaultSection: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginLeft: 32,
-    width: '80%',
+    marginHorizontal: 32,
     borderBottomWidth: 0.8,
     borderColor: 'rgba(126, 121, 127, 0.4)',
-    paddingBottom: 12
+    paddingVertical: 12
   },
   companyGoodStatus: {
     color: '#159B46',
@@ -81,6 +81,9 @@ export const styles = StyleSheet.create({
     color: '#FF0000',
     fontSize: 16
   },
+  buttonContainer: {
+    paddingVertical: 50
+  },
   button:{
     backgroundColor: '#189A46',
     paddingVertical: 8,
@@ -90,7 +93,6 @@ export const styles = StyleSheet.create({
     width: '48%',
     borderRadius: 50,
     alignSelf: 'center',
-    marginTop: 70,
   },
   buttonText:{
     fontWeight: '500',

@@ -68,7 +68,10 @@ export const styles = StyleSheet.create({
     padding: 0,
   },
   companiesListContainer: {
-    paddingVertical: 12,
+    paddingBottom: 50,
     height: '64%',
+  },
+  activityIndicatorContainer: {
+    paddingVertical: 5
   }
 })

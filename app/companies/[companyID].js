@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
 import { Avatar, IconButton } from 'react-native-paper'
 import Header from '../../components/header'
 import { styles } from '../../styles/companyProfileStyles'
@@ -80,12 +80,14 @@ const CompanyProfile = ({ navigation }) => {
         </Text>
       </View>
 
-      <View style={styles.container}>
-        <View style={styles.companyBanner}>
-          <Avatar.Image size={120} 
-            source={require('../../assets/company-logo-default.png')} 
-          />
-          <Text style={styles.companyName}>{company.name}</Text>
+      <ScrollView style={styles.container}>
+        <View style={styles.companyBannerBackground}>
+          <View style={styles.companyBannerData}>
+            <Avatar.Image size={120} 
+              source={require('../../assets/company-logo-default.png')} 
+            />
+            <Text style={styles.companyName}>{company.name}</Text>
+          </View>
         </View> 
     
         <View style={styles.companyAboutSection}>
@@ -116,18 +118,21 @@ const CompanyProfile = ({ navigation }) => {
           </View>
         }
 
-        <TouchableOpacity 
-          style={styles.button} 
-          onPress={()=> {
-            router.push(
-            {
-              pathname: 'analysisRequest/',
-              params: { companyID: params?.companyID }
-            })
-          }}>
-          <Text style={styles.buttonText}>Solicitar Análise</Text>
-        </TouchableOpacity>
-      </View>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity 
+            style={styles.button} 
+            onPress={()=> {
+              router.push(
+              {
+                pathname: 'analysisRequest/',
+                params: { companyID: params?.companyID }
+              })
+            }}>
+            <Text style={styles.buttonText}>Solicitar Análise</Text>
+          </TouchableOpacity>
+        </View>
+        
+      </ScrollView>
 
     </View>
   ) 
