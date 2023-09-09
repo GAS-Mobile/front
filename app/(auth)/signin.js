@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Stack, useRouter } from 'expo-router'
-import { View, Text, TouchableOpacity, Alert, ActivityIndicator } from 'react-native'
+import { View, Text, TouchableOpacity, Alert, ActivityIndicator, ScrollView } from 'react-native'
 import { styles } from '../../styles/authStyles'
 import { validateEmail } from '../../utils/validators'
 import { EmailInput, PasswordInput } from '../../components/authInputs'
@@ -54,14 +54,14 @@ const Signin = () => {
     })
     .then(async response => {
       //console.log(response?.data)
-      setTimeout(() => setWaitingRequestResponse(false), 300)
-      Alert.alert('Login Bem-sucedido', 'Parabéns! Você realizou o login com sucesso.')
       await AsyncStorage.setItem('accessToken', response?.data?.accessToken)
       await AsyncStorage.setItem('refreshToken', response?.data?.refreshToken)
       api.defaults.headers.common['Authorization'] = `Bearer ${response?.data?.accessToken}`
+      await fetchUserData()
+      setTimeout(() => setWaitingRequestResponse(false), 300)
+      Alert.alert('Login Bem-sucedido', 'Parabéns! Você realizou o login com sucesso.')
       setEmail('')
       setPassword('')
-      await fetchUserData()
       navigate.replace('home')
     })
     .catch(error => {
@@ -81,7 +81,7 @@ const Signin = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView  contentContainerStyle={styles.container}>
       <Stack.Screen
         options={{
           title: '',
@@ -127,7 +127,7 @@ const Signin = () => {
         <Text style={styles.link}>Esqueci minha senha</Text>
       </TouchableOpacity>
 
-    </View>
+    </ScrollView>
   )
 }
 

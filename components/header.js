@@ -26,11 +26,11 @@ const styles = StyleSheet.create({
   headerLogo: {
     height: 50,
     resizeMode: 'contain',
-    marginLeft: '10%',
-    paddingVertical: 20
+    paddingVertical: 20,
+    flex: 1,
+    marginLeft: -32
   },
   menu: {
-    backgroundColor: '# ',
     paddingTop: '20%',
     width: '70%',
     height: '100%',

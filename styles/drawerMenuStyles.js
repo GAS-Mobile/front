@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   drawerContainer: {
-    flex: 1,
+    height: '100%',
     backgroundColor: '#159B46',
   },
   header: {
@@ -39,7 +39,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: '110%'
+    marginTop: 200
   },
   logoutButtonText: {
     fontSize: 18,

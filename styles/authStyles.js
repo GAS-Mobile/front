@@ -2,19 +2,18 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    height: '100%',
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 40,
+    gap: 20,
+    paddingVertical: 50,
   },
   titleContainer: {
     width: '90%',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 2,
-    marginBottom: 40,
+    marginBottom: 24,
   },
   inputsContainer: {
     width: '90%',

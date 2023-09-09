@@ -2,10 +2,8 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
     height: '100%',
     width: '100%',
-    gap: 36,
     padding: 20,
   },
   title: {
@@ -13,7 +11,8 @@ export const styles = StyleSheet.create({
     height: 32,
     color: '#189A46',
     fontSize: 24,
-    fontWeight: 600
+    fontWeight: 600,
+    marginBottom: 36
   },
   formContainer: {
     width: '100%',
@@ -32,6 +31,7 @@ export const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'flex-end',
     gap: 10,
+    paddingVertical: 36
   },  
   sendButton:{
     backgroundColor: '#189A46',
