@@ -27,9 +27,16 @@ const CompanyCard = ({company}) => {
   return (
     <View style={styles.companyContainer}>
       <View style={styles.companyData}>
-        <Avatar.Image size={50} source={require('../assets/company-logo-default.png')} />
+        <Avatar.Image 
+          size={50} 
+          source={
+            company.logo 
+              ? { uri: company.logo }
+              : require('../assets/company-logo-default.png')
+          } 
+        />
         <View style={styles.companyTextInfo}>
-          <Text style={styles.companyName}>{company.name.toUpperCase()}</Text>
+          <Text style={styles.companyName}>{company.tradeName?.toUpperCase() || company.name?.toUpperCase()}</Text>
           {
             company.lastAnalysisDate === null ? 
             <></>
@@ -48,7 +55,7 @@ const CompanyCard = ({company}) => {
       </View>
 
       <TouchableOpacity onPress={() => {
-        navigation.push(`companies/${company._id}`)
+        navigation.push(`/company/${company._id}`)
       }} style={styles.showCompanyDetailsButton}>
 
         <Text style={styles.showCompanyDetailsText}>{'Acessar\ndetalhes'}</Text>

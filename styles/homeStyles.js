@@ -2,76 +2,86 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#F2F2F2',
-    height: '100%',
-    width: '100%',
+    flex: 1,
+    backgroundColor: '#f5f5f5',
   },
-  searchBarContainer: {
-    flexDirection: 'row',
-    backgroundColor: '#159B46',
-    width: '100%',
-    paddingHorizontal: 24,
-    paddingVertical: 10,
-    gap: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
+  searchContainer: {
+    backgroundColor: '#fff',
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+  },
+  searchInputWrapper: {
+    marginBottom: 12,
   },
   searchInput: {
-    width: '85%',
-    fontSize: 16,
-    lineHeight: 32,
-    height: 42,
-  },
-  clearSearchInputIcon: {
-    margin: 0,
-    marginTop: 8,
-    marginLeft: 10,
-  },
-  searchButton : {
-    width: '15%',
-    borderWidth: 1.2,
-    borderColor: '#C7C7C7',
-    borderRadius: 50,
-    height: 44,
-    margin: 0,
-    marginTop: 6
+    backgroundColor: '#fff',
+    fontSize: 15,
   },
   filtersContainer: {
     flexDirection: 'row',
-    backgroundColor: '#75B28B',
-    width: '100%',
-    paddingVertical: 6,
-    paddingHorizontal: 20,
-    gap: 12,
+    gap: 8,
     alignItems: 'center',
-    justifyContent: 'center',
   },
   filterChip: {
-    borderRadius: 50,
-    backgroundColor: 'transparent',
-    color: '#fff',
-    borderColor: '#fff',
+    borderRadius: 20,
+    backgroundColor: '#fff',
+    borderColor: '#189A46',
+    borderWidth: 1,
   },
   filterChipSelected: {
-    borderRadius: 50,
-    backgroundColor: '#159B46',
-    color: '#fff',
-    borderColor: '#fff',
+    backgroundColor: '#189A46',
+    borderColor: '#189A46',
   },
   filterChipText: {
-    color: '#FFF',
-    fontSize: 14,
-    fontWeight: 600
+    color: '#189A46',
+    fontSize: 13,
+    fontWeight: '500',
   },
-  showMoreFiltersButton: {
-    margin: 0,
-    padding: 0,
+  filterChipTextSelected: {
+    color: '#fff',
+    fontSize: 13,
+    fontWeight: '500',
   },
-  companiesListContainer: {
-    paddingBottom: 50,
-    height: '64%',
+  scrollView: {
+    flex: 1,
   },
-  activityIndicatorContainer: {
-    paddingVertical: 5
-  }
-})
+  scrollViewContent: {
+    paddingBottom: 20,
+  },
+  companiesContainer: {
+    padding: 16,
+    gap: 12,
+  },
+  loaderContainer: {
+    paddingVertical: 20,
+    alignItems: 'center',
+  },
+  emptyState: {
+    paddingVertical: 40,
+    alignItems: 'center',
+  },
+  emptyStateText: {
+    color: '#999',
+    fontSize: 16,
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'flex-start',
+  },
+  drawerContainer: {
+    width: '80%',
+    height: '100%',
+    backgroundColor: '#fff',
+    elevation: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 2, height: 0 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+  },
+});

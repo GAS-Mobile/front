@@ -1,0 +1,120 @@
+import { StyleSheet } from 'react-native';
+
+export const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f5f5f5',
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
+  listContent: {
+    padding: 16,
+  },
+  card: {
+    backgroundColor: '#fff',
+    borderRadius: 16,
+    marginBottom: 16,
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.12,
+    shadowRadius: 8,
+    overflow: 'hidden',
+    borderLeftWidth: 4,
+    borderLeftColor: '#189A46',
+  },
+  cardHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 16,
+    paddingBottom: 8,
+  },
+  companyName: {
+    flex: 1,
+    fontSize: 18,
+    fontWeight: '800',
+    color: '#1a1a1a',
+    marginRight: 12,
+    letterSpacing: -0.3,
+  },
+  statusChip: {
+    height: 32,
+    elevation: 0,
+  },
+  statusChipText: {
+    fontSize: 12,
+    fontWeight: '800',
+    color: '#fff',
+    letterSpacing: 0.5,
+  },
+  cardContent: {
+    padding: 16,
+    paddingTop: 12,
+    backgroundColor: '#fafafa',
+    gap: 8,
+  },
+  infoRow: {
+    flexDirection: 'row',
+    marginBottom: 6,
+    alignItems: 'flex-start',
+  },
+  label: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: '#189A46',
+    marginRight: 6,
+    minWidth: 140,
+  },
+  value: {
+    flex: 1,
+    fontSize: 13,
+    color: '#333',
+    fontWeight: '500',
+  },
+  motiveContainer: {
+    marginTop: 12,
+    paddingTop: 12,
+    borderTopWidth: 1,
+    borderTopColor: '#e0e0e0',
+  },
+  motiveText: {
+    fontSize: 13,
+    color: '#666',
+    marginTop: 6,
+    fontStyle: 'italic',
+    lineHeight: 18,
+  },
+  cardFooter: {
+    alignItems: 'flex-end',
+    paddingRight: 8,
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 32,
+  },
+  emptyText: {
+    fontSize: 16,
+    color: '#666',
+    marginBottom: 24,
+    textAlign: 'center',
+  },
+  emptyButton: {
+    backgroundColor: '#189A46',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 8,
+    elevation: 2,
+  },
+  emptyButtonText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#fff',
+  },
+});

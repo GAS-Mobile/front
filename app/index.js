@@ -3,13 +3,15 @@ import { View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useRouter, Stack } from 'expo-router';
 
 const InitialPage = () => {
-  const navigate = useRouter()
+  const navigate = useRouter();
 
   return (
     <View style={styles.container}>
-      <Stack.Screen options={{
-        headerShown: false,
-      }}/>
+      <Stack.Screen
+        options={{
+          headerShown: false,
+        }}
+      />
 
       <Image
         style={styles.logo}
@@ -17,26 +19,22 @@ const InitialPage = () => {
       />
 
       <View style={styles.buttonsContainer}>
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.signinButton}
-          onPress={() => navigate.push('signin')}
+          onPress={() => navigate.push('/signin')}
         >
-          <Text style={styles.signinButtonText}>
-            Login
-          </Text>
+          <Text style={styles.signinButtonText}>Login</Text>
         </TouchableOpacity>
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.signupButton}
-          onPress={() => navigate.push('signup')}
+          onPress={() => navigate.push('/signup')}
         >
-          <Text style={styles.signupButtonText}>
-            Cadastro
-          </Text>
+          <Text style={styles.signupButtonText}>Cadastro</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -46,51 +44,40 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 160
+    gap: 160,
   },
   logo: {
-    height: '25%',
-    width: '50%',
-    borderRadius: 100,
-    resizeMode: 'contain',
-    top: 200
+    width: 200,
+    height: 200,
   },
-  buttonsContainer:{
-    width: '100%',
-    height: "80%",
-    alignItems: 'center',
-    justifyContent: 'center',
+  buttonsContainer: {
+    width: '80%',
     gap: 16,
   },
-  signinButton:{
-    paddingVertical: 10,
-    borderRadius: 4,
-    alignItems: 'center',
-    borderWidth: 2,
-    borderColor: '#fff',
-    width: '90%',
-    borderRadius: 50,
-  },
-  signinButtonText:{
-    fontWeight: '500',
-    fontSize: 24,
-    color: '#fff',
-  },
-  signupButton:{
+  signinButton: {
     backgroundColor: '#fff',
-    paddingVertical: 10,
-    borderRadius: 4,
+    padding: 16,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  signinButtonText: {
+    color: '#189A46',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  signupButton: {
+    backgroundColor: 'transparent',
+    padding: 16,
+    borderRadius: 8,
     alignItems: 'center',
     borderWidth: 2,
     borderColor: '#fff',
-    width: '90%',
-    borderRadius: 50,
   },
-  signupButtonText:{
-    fontWeight: '500',
-    fontSize: 24,
-    color: '#189A46',
+  signupButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
-})
+});
 
 export default InitialPage;

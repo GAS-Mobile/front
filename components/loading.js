@@ -2,7 +2,7 @@ import React from 'react'
 import LottieView from 'lottie-react-native'
 import { View, StyleSheet, Text } from 'react-native'
 
-export const Loading = () => {
+const Loading = () => {
   return (
     <View style={styles.loadingContainer}>
       <LottieView 
@@ -15,7 +15,7 @@ export const Loading = () => {
   )
 }
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   loadingContainer: {
     backgroundColor: '#fff',
     flex: 1,
@@ -31,3 +31,5 @@ export const styles = StyleSheet.create({
     fontWeight: 700
   }
 })
+
+export default Loading;
