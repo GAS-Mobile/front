@@ -2,52 +2,66 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   drawerContainer: {
-    height: '100%',
-    backgroundColor: '#159B46',
+    flex: 1,
+    backgroundColor: '#189A46',
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
+    paddingTop: 8,
+    paddingRight: 4,
   },
   content: {
     flex: 1,
-    paddingVertical: 16,
-    paddingHorizontal: 28,
+    paddingHorizontal: 24,
   },
   avatarContainer: {
     alignItems: 'center',
-    marginBottom: 36,
+    marginBottom: 32,
+    paddingVertical: 20,
   },
   avatar: {
-    backgroundColor: 'transparent',
+    backgroundColor: '#fff',
   },
   userName: {
-    fontSize: 18,
-    fontWeight: '600',
+    fontSize: 20,
+    fontWeight: '700',
     color: '#fff',
     marginTop: 12,
   },
+  userEmail: {
+    fontSize: 14,
+    color: '#e0e0e0',
+    marginTop: 4,
+  },
+  links: {
+    flex: 1,
+  },
   drawerItem: {
-    paddingVertical: 12,
-  },
-  drawerItemText: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#fff'
-  },
-  logoutButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 200
+    paddingVertical: 12,
+    paddingHorizontal: 8,
+    borderRadius: 8,
+    marginBottom: 4,
   },
-  logoutButtonText: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#fff'
-  },
-  logoutIcon: {
+  drawerIcon: {
     margin: 0,
-    padding: 0,
+    backgroundColor: '#fff',
+    borderRadius: 8,
   },
-})
+  drawerItemText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#fff',
+    marginLeft: 16,
+  },
+  logoutText: {
+    color: '#ffe0e0',
+  },
+  divider: {
+    height: 1,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    marginVertical: 16,
+  },
+});

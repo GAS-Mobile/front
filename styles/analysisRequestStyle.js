@@ -1,61 +1,100 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f5f5f5',
+  },
   container: {
-    height: '100%',
-    width: '100%',
+    flex: 1,
+    backgroundColor: '#f5f5f5',
     padding: 20,
   },
   title: {
     width: '100%',
-    height: 32,
     color: '#189A46',
-    fontSize: 24,
-    fontWeight: 600,
-    marginBottom: 36
+    fontSize: 28,
+    fontWeight: '800',
+    marginBottom: 8,
+    letterSpacing: -0.5,
+  },
+  subtitle: {
+    width: '100%',
+    color: '#666',
+    fontSize: 14,
+    marginBottom: 24,
   },
   formContainer: {
     width: '100%',
-    gap: 20
+    gap: 24,
+  },
+  inputContainer: {
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    padding: 16,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
   label: {
-    fontSize: 16,
-    fontWeight: 500,
+    fontSize: 14,
+    fontWeight: '700',
+    color: '#189A46',
+    marginBottom: 8,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
   },
   input: {
     width: '100%',
-    fontSize: 16,
+    fontSize: 15,
+    backgroundColor: '#fff',
   },
   buttonsContainer: {
     flexDirection: 'row',
     width: '100%',
-    justifyContent: 'flex-end',
-    gap: 10,
-    paddingVertical: 36
-  },  
-  sendButton:{
+    justifyContent: 'space-between',
+    gap: 12,
+    paddingVertical: 32,
+  },
+  sendButton: {
     backgroundColor: '#189A46',
-    paddingVertical: 10,
-    borderRadius: 4,
+    paddingVertical: 16,
+    paddingHorizontal: 32,
+    borderRadius: 12,
     alignItems: 'center',
-    borderWidth: 2,
-    borderColor: '#fff',
-    borderRadius: 50,
-    width: '30%'
+    justifyContent: 'center',
+    flex: 1,
+    elevation: 4,
+    shadowColor: '#189A46',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
   },
-  cancelButton:{
-    backgroundColor: '#E93446',
-    paddingVertical: 10,
-    borderRadius: 4,
+  cancelButton: {
+    backgroundColor: '#fff',
+    paddingVertical: 16,
+    paddingHorizontal: 32,
+    borderRadius: 12,
     alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
     borderWidth: 2,
-    borderColor: '#fff',
-    borderRadius: 50,
-    width: '28%'
+    borderColor: '#d32f2f',
   },
-  buttonText:{
-    fontWeight: '500',
-    fontSize: 14,
+  buttonText: {
+    fontWeight: '700',
+    fontSize: 16,
     color: '#fff',
+    letterSpacing: 0.5,
+  },
+  cancelButtonText: {
+    fontWeight: '700',
+    fontSize: 16,
+    color: '#d32f2f',
+    letterSpacing: 0.5,
   },
 });

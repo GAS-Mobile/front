@@ -1,86 +1,72 @@
-import React from 'react'
-import { View, TouchableOpacity, Text, Alert } from 'react-native'
-import { DrawerContentScrollView } from '@react-navigation/drawer'
-import { Avatar, IconButton } from 'react-native-paper'
-import { styles } from '../styles/drawerMenuStyles'
-import { useAuth } from '../hooks/useAuth'
-import { useRouter, useSegments } from 'expo-router'
+import React from 'react';
+import { View, TouchableOpacity, Text, Alert, ScrollView } from 'react-native';
+import { Avatar, IconButton } from 'react-native-paper';
+import { styles } from '../styles/drawerMenuStyles';
+import { useAuth } from '../hooks/useAuth';
+import { useRouter } from 'expo-router';
 
-export default function DrawerContent({ navigation }) {
-  const {logout, user} = useAuth()
-  const router = useRouter()
-  const segments = useSegments()
-
-  const closeDrawer = () => {
-    navigation.closeDrawer()
-  }
+export default function DrawerContent({ onClose }) {
+  const { logout, user } = useAuth();
+  const router = useRouter();
 
   const handleLogout = () => {
-    Alert.alert('Logout com sucesso', 'Você foi desconectado da sua conta com sucesso.');
-    logout()
-  }
+    Alert.alert('Logout', 'Você foi desconectado da sua conta com sucesso.');
+    logout();
+    onClose();
+  };
+
+  const navigateTo = (route) => {
+    router.push(route);
+    onClose();
+  };
 
   return (
-    <DrawerContentScrollView style={styles.drawerContainer}>
+    <ScrollView style={styles.drawerContainer}>
       <View style={styles.header}>
-        <IconButton
-          icon="close"
-          iconColor="#fff"
-          size={38}
-          onPress={closeDrawer}
-        />
+        <IconButton icon="close" iconColor="#fff" size={32} onPress={onClose} />
       </View>
+      
       <View style={styles.content}>
         <View style={styles.avatarContainer}>
-          <Avatar.Image size={100} 
-            source={require('../assets/default-user-avatar.png')} 
+          <Avatar.Image
+            size={80}
+            source={require('../assets/default-user-avatar.png')}
             style={styles.avatar}
           />
-          <Text style={styles.userName}>{user?.customer?.name}</Text>
-        </View> 
+          <Text style={styles.userName}>{user?.customer?.name || 'Usuário'}</Text>
+          <Text style={styles.userEmail}>{user?.customer?.email || ''}</Text>
+        </View>
 
         <View style={styles.links}>
           <TouchableOpacity
             style={styles.drawerItem}
-            onPress={() => {
-              if (segments[0] !== 'home'){
-                router.replace('home/')
-              }
-            }}
+            onPress={() => navigateTo('/home')}
           >
-            <Text style={styles.drawerItemText}>Home</Text>
+            <IconButton icon="home" iconColor="#189A46" size={24} style={styles.drawerIcon} />
+            <Text style={styles.drawerItemText}>Início</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.drawerItem}
-            onPress={() => console.log('Dashboard')}
+            onPress={() => navigateTo('/requests')}
           >
-            <Text style={styles.drawerItemText}>Dashboard</Text>
+            <IconButton
+              icon="file-document-outline"
+              iconColor="#189A46"
+              size={24}
+              style={styles.drawerIcon}
+            />
+            <Text style={styles.drawerItemText}>Minhas Solicitações</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.drawerItem}
-            onPress={() => console.log('Status das solicitações')}
-          >
-            <Text style={styles.drawerItemText}>Status das solicitações</Text>
+          <View style={styles.divider} />
+
+          <TouchableOpacity style={styles.drawerItem} onPress={handleLogout}>
+            <IconButton icon="logout" iconColor="#d32f2f" size={24} style={styles.drawerIcon} />
+            <Text style={[styles.drawerItemText, styles.logoutText]}>Sair</Text>
           </TouchableOpacity>
         </View>
-
-          <TouchableOpacity
-            style={styles.logoutButton}
-            onPress={handleLogout}
-          >
-            <Text style={styles.logoutButtonText}>Sair</Text>
-            <IconButton
-              style={styles.logoutIcon}
-              icon="logout"
-              size={24}
-              theme={{ colors: { onSurfaceDisabled: '#fff' } }}
-              disabled
-            />
-          </TouchableOpacity>
-
       </View>
-    </DrawerContentScrollView>
-  )
+    </ScrollView>
+  );
 }

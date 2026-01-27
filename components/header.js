@@ -1,40 +1,34 @@
-import React from 'react'
-import { Appbar } from 'react-native-paper'
-import { StyleSheet, Image} from 'react-native'
+import React from 'react';
+import { Appbar } from 'react-native-paper';
+import { StyleSheet, Image } from 'react-native';
 
-export const Header = ({ navigation }) => {
-  const toggleMenu = () => {
-    navigation.openDrawer()
-  }
-  
+const Header = ({ onMenuPress }) => {
   return (
     <Appbar.Header style={styles.container}>
-      <Appbar.Action icon="menu" onPress={toggleMenu} size={32}/>
+      <Appbar.Action icon="menu" onPress={onMenuPress} size={28} color="#333" />
       <Image
         style={styles.headerLogo}
         source={require('../assets/header.png')}
-        />
+      />
     </Appbar.Header>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#F2F2F2',
-    paddingVertical: 40,
+    backgroundColor: '#fff',
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
   headerLogo: {
-    height: 50,
+    height: 40,
     resizeMode: 'contain',
-    paddingVertical: 20,
     flex: 1,
-    marginLeft: -32
+    marginLeft: -20,
   },
-  menu: {
-    paddingTop: '20%',
-    width: '70%',
-    height: '100%',
-  },
-})
+});
 
-export default Header
+export default Header;
